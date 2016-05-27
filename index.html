@@ -7,76 +7,67 @@
 <body>
 
 
-
-<H1>A Simple #Sample Web Page</H1>
-
-
-
-  <IMG SRC="http://sheldonbrown.com/images/scb_eagle_contact.jpeg">
-
-
-
-
-
-  <H4>By Sheldon Brown</H4>
-
-<H2>Demonstrating a few HTML features</H2>
-
-</CENTER>
-
-HTML is really a very simple language. It consists of ordinary text, with commands that are enclosed by "<" and ">" characters, or bewteen an "&" and a ";". <P>
-
-
-You don't really need to know much HTML to create a page, because you can copy bits of HTML from other pages that do what you want, then change the text!<P>
-
-
-This page shows on the left as it appears in your browser, and the corresponding HTML code appears on the right. The HTML commands are linked to explanations of what they do.
-
-
-
-
-<H3>Line Breaks</H3>
-
-HTML #doesn't normally use line breaks for ordinary text. A white space of any size is treated as a single space. This is because the author of the page has no way of knowing the size of the reader's #screen, or what size type they will have their browser set for.<P>
-
-
-
-If you want to put a line break at a particular place, you can use the "<BR>" command, or, for a paragraph break, the "<P>" command, which will insert a blank line. The heading command ("<4></4>") puts a blank line above and below the heading text.
-
-
-
-<H4>Starting and Stopping Commands</H4>
-
-Most HTML #commands come in pairs: for example, "<H4>" marks the beginning of a size 4 heading, and "</H4>" marks the end of it. The closing command is always the same as the opening command, except for the addition of the "/".<P>
-
-
-
-Modifiers are sometimes included along with the basic command, inside the opening command's < >. The modifier does not need to be repeated in the closing command.
-
-
-
-
-
-<H1>This is a size "1" heading</H1>
-
-<H2>This is a size "2" heading</H2>
-
-<H3>This is a #size "3" heading</H3>
-
-<H4>This is a size "4" heading</H4>
-
-<H5>This is a size "5" #heading</H5>
-
-<H6>This is a size "6" heading</H6>
-
-<center>
-
-<H4>Copyright © #1997, by
-<A HREF="http://sheldonbrown.com/index.html">Sheldon Brown</A>
-</H4>
-
-If you would like to make a #link or bookmark to this page, the URL is:<BR> http://sheldonbrown.com/web_sample1.html
-
+<div class="wrapper">
+      <header>
+        <h1>Yoko's Kitchen</h1>
+        <nav>
+          <ul>
+            <li><a href="" class="current">home</a></li>
+            <li><a href="">classes</a></li>
+            <li><a href="">catering</a></li>
+            <li><a href="">about</a></li>
+            <li><a href="">contact</a></li>
+          </ul>
+        </nav>
+      </header>
+      <section class="courses">
+        <a href="introduction.html">
+          <article>
+            <figure>
+              <img src="images/bok-choi.jpg" alt="Bok Choi">
+              <figcaption>Bok #Choi</figcaption>
+            </figure>
+            <hgroup>
+              <h2>Japanese #Vegetarian</h2>
+              <h3>Five week course in London</h3>
+            </hgroup>
+            <p>A five week introduction to #traditional Japanese vegetarian meals, teaching you a selection of rice and noodle dishes.</p>
+          </article>
+        </a>
+        <a href="sauces.html">
+          <article>
+            <figure>
+              <img src="images/teriyaki.jpg" alt="Teriyaki sauce">
+              <figcaption>Teriyaki Sauce</figcaption>
+            </figure>
+            <hgroup>
+              <h2>Sauces Masterclass</h2>
+              <h3>One day workshop</h3>
+            </hgroup>
+            <p>An intensive one-day course looking at how to create the most delicious sauces for use in a range of Japanese cookery.</p>
+          </article>
+        </a>
+      </section>
+      <aside>
+        <section class="popular-recipes">
+          <h2>Popular #Recipes</h2>
+          <a href="">Yakitori (grilled chicken)</a>
+          <a href="">Tsukune (minced chicken patties)</a>
+          <a href="">Okonomiyaki (savory pancakes)</a>
+          <a href="">#Mizutaki (chicken stew)</a>
+        </section>
+        <section class="contact-details">
+          <h2>Contact</h2>
+          <p>Yoko's Kitchen<br>
+            27 Redchurch Street<br>
+            Shoreditch<br>
+            London E2 7DP</p>
+        </section>
+      </aside>
+      <footer>
+        © 2011 #Yoko's Kitchen
+      </footer>
+    </div>
 
 
   <script type="text/javascript" src="hashtags.js"></script>
