@@ -13,3 +13,7 @@ To test this, I'll drop your script into a webpage like this:
 <script async src='https://localhost/amys_script.js'></script>
 
 And it will need to find all hashtags on a page and turn them into <a href> links.
+
+todo:
+- links within links
+- comments

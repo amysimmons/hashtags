@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
   function traverseDom(node){
-
     for (var i = 0; i < node.childNodes.length; i++) {
       var childNode = node.childNodes[i];
       if(childNode.nodeType === Node.TEXT_NODE && childNode.textContent.includes("#")){
@@ -13,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   function replaceHashtagsWithLinks(node){
-    var words = node.data.split(' ');
+    //splits words on either hash or space in case of hashtags without spaces between them
+    var words = node.data.split(/(?=#)| /);
     var replacementNode = document.createElement('span');
 
     for (var i = 0; i < words.length; i++) {
@@ -24,13 +24,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
         //store chars before the hashtag
         var charsBeforeHashtag = "";
         if(word.indexOf("#") > 0){
-          charsBeforeHashtag = word.slice(0, word.indexOf("#"))
+          charsBeforeHashtag = word.slice(0, word.indexOf("#"));
           word = word.slice(word.indexOf("#"));
         }
 
         //store chars after the hashtag
         var charsAfterHashtag = "";
-        var index = word.indexOf(word.match(/[^A-Za-z0-9#+]/));
+        var index = word.indexOf(word.match(/[\u2000-\u206F\u2E00-\u2E7F\\'!"$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]/));
         if(index > 0){
           charsAfterHashtag = word.slice(index);
           word = word.substring(0, index);
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         var beforeTextNode = document.createTextNode(" " + charsBeforeHashtag);
         var link = wrapHashtagInLink(word);
-        var afterTextNode = document.createTextNode(charsAfterHashtag + " ");
+        var afterTextNode = document.createTextNode(charsAfterHashtag);
 
         replacementNode.appendChild(beforeTextNode);
         replacementNode.appendChild(link);
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var link = document.createElement('a');
     var linkText = document.createTextNode(hashtag);
     link.appendChild(linkText);
-    link.href = "https://twitter.com/search?q=" + hashtag;
+    link.href = "https://twitter.com/search?q=" + hashtag.slice(1);
     return link;
   }
 
