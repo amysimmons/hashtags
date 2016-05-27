@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         if(word[0] == "#"){
           words[i] = wrapHashtagInLink(word);
           console.log('hash tag: link', words[i]);
+
+          node.nodeValue = words.join(' ');
+          debugger
+
         }
       };
   }
