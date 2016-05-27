@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   function replaceHashtagsWithLinks(node){
-    //splits words on either hash or space in case of hashtags without spaces between them
+    //splits words on either a hash or space in case of hashtags without spaces between them
     var words = node.data.split(/(?=#)| /);
     var replacementNode = document.createElement('span');
 
@@ -35,22 +35,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
           word = word.substring(0, index);
         }
 
+        //reconstruct the word
         var beforeTextNode = document.createTextNode(" " + charsBeforeHashtag);
-        var link = wrapHashtagInLink(word);
-        var afterTextNode = document.createTextNode(charsAfterHashtag + " ");
-
         replacementNode.appendChild(beforeTextNode);
+        var link = wrapHashtagInLink(word);
         replacementNode.appendChild(link);
+        var afterTextNode = document.createTextNode(charsAfterHashtag + " ");
         replacementNode.appendChild(afterTextNode);
 
       }else{
-        replacementNode.appendChild(document.createTextNode(word));
+        replacementNode.appendChild(document.createTextNode(word + " "));
       }
     };
 
+    //replace existing text node with node containing hashtag link
     node.parentNode.insertBefore(replacementNode, node);
     node.parentNode.removeChild(node);
-    words.shift();
   }
 
   function wrapHashtagInLink(hashtag){
