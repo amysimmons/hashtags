@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         var beforeTextNode = document.createTextNode(" " + charsBeforeHashtag);
         var link = wrapHashtagInLink(word);
-        var afterTextNode = document.createTextNode(charsAfterHashtag);
+        var afterTextNode = document.createTextNode(charsAfterHashtag + " ");
 
         replacementNode.appendChild(beforeTextNode);
         replacementNode.appendChild(link);
@@ -63,6 +63,3 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   traverseDom(document.body);
 });
-
-
-
