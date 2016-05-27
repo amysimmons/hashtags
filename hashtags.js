@@ -14,20 +14,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   function replaceHashtagsWithLinks(node){
     var words = node.data.split(' ');
+    var replacementNode = document.createElement('span');
 
     for (var i = 0; i < words.length; i++) {
       var word = words[i];
-      //a hash followed by any number of characters up to a non-word character
+
       if(word.includes("#")){
 
-        //store chars before the hash tag
+        //store chars before the hashtag
         var charsBeforeHashtag = "";
         if(word.indexOf("#") > 0){
           charsBeforeHashtag = word.slice(0, word.indexOf("#"))
           word = word.slice(word.indexOf("#"));
         }
 
-        //store chars after the hash tag
+        //store chars after the hashtag
         var charsAfterHashtag = "";
         var index = word.indexOf(word.match(/[^A-Za-z0-9#+]/));
         if(index > 0){
@@ -35,28 +36,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
           word = word.substring(0, index);
         }
 
-        var wordsBeforeHashtag = words.slice(0, i);
-        var beforeTextNode = document.createTextNode(" " + wordsBeforeHashtag.join(' ') + " " + charsBeforeHashtag);
-
-        var replacementNode = document.createElement('span');
+        var beforeTextNode = document.createTextNode(" " + charsBeforeHashtag);
         var link = wrapHashtagInLink(word);
-
-        var wordsAfterHashtag = words.slice(i + 1);
-        var afterTextNode = document.createTextNode(charsAfterHashtag + " " + wordsAfterHashtag.join(' '));
+        var afterTextNode = document.createTextNode(charsAfterHashtag + " ");
 
         replacementNode.appendChild(beforeTextNode);
         replacementNode.appendChild(link);
         replacementNode.appendChild(afterTextNode);
 
-        node.parentNode.insertBefore(replacementNode, node);
-        node.parentNode.removeChild(node);
+      }else{
+        replacementNode.appendChild(document.createTextNode(word));
       }
     };
+
+    node.parentNode.insertBefore(replacementNode, node);
+    node.parentNode.removeChild(node);
+    words.shift();
   }
 
   function wrapHashtagInLink(hashtag){
     var link = document.createElement('a');
-    var linkText = document.createTextNode(" " + hashtag);
+    var linkText = document.createTextNode(hashtag);
     link.appendChild(linkText);
     link.href = "https://twitter.com/search?q=" + hashtag;
     return link;
