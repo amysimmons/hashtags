@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function traverseDom(node){
     for (var i = 0; i < node.childNodes.length; i++) {
       var childNode = node.childNodes[i];
-      if(childNode.nodeType === Node.TEXT_NODE && childNode.textContent.includes("#")){
+      if(childNode.nodeType === Node.TEXT_NODE && node.nodeName != "A" && childNode.textContent.includes("#")){
         replaceHashtagsWithLinks(childNode);
       }
       if(childNode.childNodes.length > 0){
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       var word = words[i];
 
       if(word.includes("#")){
-
         //store chars before the hashtag
         var charsBeforeHashtag = "";
         if(word.indexOf("#") > 0){
