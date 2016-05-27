@@ -13,43 +13,45 @@ document.addEventListener("DOMContentLoaded", function(event) {
   }
 
   function replaceHashtagsWithLinks(node){
-      var words = node.data.split(' ');
+    var words = node.data.split(' ');
 
-      for (var i = 0; i < words.length; i++) {
-        var word = words[i];
-        if(word[0] == "#"){
+    for (var i = 0; i < words.length; i++) {
+      var word = words[i];
+      //a hash followed by any number of characters up to a non-word character
+      if(word.includes("#")){
 
-          var beforeHashtag = words.slice(0, i);
-          var beforeTextNode = document.createTextNode(" " + beforeHashtag.join(' '));
-          var replacementNode = document.createElement('span');
-          var link;
-          var afterHashtag;
-          var afterTextNode;
-
-          //check for hashtag breaking chars
-          var index = word.indexOf(word.match(/[^A-Za-z0-9#+]/));
-
-          if(index > 0){
-            var hashtag = word.substring(0, index);
-            link = wrapHashtagInLink(hashtag);
-            var remainder = word.slice(index);
-            afterHashtag = words.slice(i + 1);
-            afterTextNode = document.createTextNode(remainder + " " + afterHashtag.join(' '));
-          }else {
-            var hashtag = word;
-            link = wrapHashtagInLink(hashtag);
-            afterHashtag = words.slice(i + 1);
-            afterTextNode = document.createTextNode(" " + afterHashtag.join(' '));
-          }
-
-          replacementNode.appendChild(beforeTextNode);
-          replacementNode.appendChild(link);
-          replacementNode.appendChild(afterTextNode);
-
-          node.parentNode.insertBefore(replacementNode, node);
-          node.parentNode.removeChild(node);
+        //store chars before the hash tag
+        var charsBeforeHashtag = "";
+        if(word.indexOf("#") > 0){
+          charsBeforeHashtag = word.slice(0, word.indexOf("#"))
+          word = word.slice(word.indexOf("#"));
         }
-      };
+
+        //store chars after the hash tag
+        var charsAfterHashtag = "";
+        var index = word.indexOf(word.match(/[^A-Za-z0-9#+]/));
+        if(index > 0){
+          charsAfterHashtag = word.slice(index);
+          word = word.substring(0, index);
+        }
+
+        var wordsBeforeHashtag = words.slice(0, i);
+        var beforeTextNode = document.createTextNode(" " + wordsBeforeHashtag.join(' ') + " " + charsBeforeHashtag);
+
+        var replacementNode = document.createElement('span');
+        var link = wrapHashtagInLink(word);
+
+        var wordsAfterHashtag = words.slice(i + 1);
+        var afterTextNode = document.createTextNode(charsAfterHashtag + " " + wordsAfterHashtag.join(' '));
+
+        replacementNode.appendChild(beforeTextNode);
+        replacementNode.appendChild(link);
+        replacementNode.appendChild(afterTextNode);
+
+        node.parentNode.insertBefore(replacementNode, node);
+        node.parentNode.removeChild(node);
+      }
+    };
   }
 
   function wrapHashtagInLink(hashtag){
